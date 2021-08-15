@@ -1,0 +1,2 @@
+Required Python libraries:
+-numpy
