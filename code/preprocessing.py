@@ -13,44 +13,47 @@ labels = [0, 1, 2, 3]
 def import_corpus():
     test = pd.read_csv("test.csv")
     train = pd.read_csv("train.csv")
-    valid = pd.read_csv("dev.csv")
-    return train, test, valid
+    dev = pd.read_csv("dev.csv")
+    train_data_ver1 = train[["original1", "edit1", "meanGrade1"]]
+    train_data_ver2 = train[["original2", "edit2", "meanGrade2"]]
+    train_data_ver1 = train_data_ver1.rename(columns={"original1": "original", "edit1": "edit", "meanGrade1": "meanGrade"})
+    train_data_ver2 = train_data_ver2.rename(columns={"original2": "original", "edit2": "edit", "meanGrade2": "meanGrade"})
+    test_data_ver1 = test[["original1", "edit1", "meanGrade1"]]
+    test_data_ver2 = test[["original2", "edit2", "meanGrade2"]]
+    test_data_ver1 = test_data_ver1.rename(columns={"original1": "original", "edit1": "edit", "meanGrade1": "meanGrade"})
+    test_data_ver2 = test_data_ver2.rename(columns={"original2": "original", "edit2": "edit", "meanGrade2": "meanGrade"})
+    dev_data_ver1 = dev[["original1", "edit1", "meanGrade1"]]
+    dev_data_ver2 = dev[["original2", "edit2", "meanGrade2"]]
+    dev_data_ver1 = dev_data_ver1.rename(columns={"original1": "original", "edit1": "edit", "meanGrade1": "meanGrade"})
+    dev_data_ver2 = dev_data_ver2.rename(columns={"original2": "original", "edit2": "edit", "meanGrade2": "meanGrade"})
+    return (train_data_ver1,train_data_ver2), (test_data_ver1,test_data_ver2),(dev_data_ver1,dev_data_ver2)
 
 
 class data_set():
-    def __init__(self, data: pd.DataFrame, tokenizer: BertTokenizer, max_len: int = 64):
+    def __init__(self, data: pd.DataFrame, tokenizer: BertTokenizer, max_len: int = 256):
         self.data = data
         self.tokenizer = tokenizer
         self.max_len = max_len
 
     def __getitem__(self, idx: int):
-        text_edited = self.data.iloc[idx]["original"].split("<")[0] + self.data.iloc[idx]["edit"] + \
-                      self.data.iloc[idx]["original"].split(">")[1]
-        meanGrade = self.data.iloc[idx]["meanGrade"]
-        encoding = self.tokenizer.encode_plus(text_edited, add_special_tokens=True, max_length=self.max_len,
+        row = self.data.iloc[idx]
+        text_original= row["original"].replace("<", "").replace("/>","")
+        text_edited = row["original"].split("<")[0] + row["edit"] + \
+                      row["original"].split(">")[1]
+        meanGrade = row["meanGrade"]
+        encoding = self.tokenizer.encode_plus(text_original,text_edited, add_special_tokens=True, max_length=self.max_len,
                                               return_token_type_ids=False, padding="max_length", truncation=True,
                                               return_attention_mask=True, return_tensors="tf")
-        return dict(text=text_edited, input_ids=tf.squeeze(encoding["input_ids"]),
-                    attention_mask=tf.squeeze(encoding["attention_mask"]),meanGrade=meanGrade)
+        return dict(text_edited=text_edited,text_original=text_original, input_ids=tf.squeeze(encoding["input_ids"]),
+                    attention_mask=tf.squeeze(encoding["attention_mask"]), meanGrade=meanGrade)
 
 
 bert_model = "bert-base-cased"
 tokenizer = BertTokenizer.from_pretrained(bert_model)
-train, test, dev = import_corpus()
-complete_data = train.append(test, ignore_index=True)
-complete_data = complete_data.append(dev, ignore_index=True)
-data_ver1 = complete_data[["original1", "edit1", "meanGrade1"]]
-data_ver2 = complete_data[["original2", "edit2", "meanGrade2"]]
-data_ver1.rename(columns={"original1": "original", "edit1": "edit", "meanGrade1": "meanGrade"},
-                 inplace=True)
-data_ver2.rename(columns={"original2": "original", "edit2": "edit", "meanGrade2": "meanGrade"},
-                 inplace=True)
-data_train = data_set(data_ver1, tokenizer)
-print(data_train.__getitem__(0))
+(train1,train2), (test1,test2),(dev1,dev2) = import_corpus()
+train1=data_set(train1,tokenizer)
+train2=data_set(train2,tokenizer)
+dict1 = train1.__getitem__(0)
+dict2 = train2.__getitem__(0)
+print(tokenizer.decode(dict2["input_ids"]))
 
-'''tokenizer=BertTokenizer.from_pretrained(bert_model)
-print(train["original2"][0])
-print(train["edit2"][0])
-print(tokenizer.encode_plus(train["original2"][0],max_length=130,padding="max_length"))
-print(tokenizer.decode(tokenizer(train["original1"][0],train["original2"][0])["input_ids"]))
-print(tokenizer(train["original1"][0],train["original2"][0],return_tensors="tf"))'''
