@@ -83,6 +83,17 @@ print(lis)
 '''
 
 
+def prepare_data():
+    train, test, dev = import_corpus()
+    data_train = data_set(train, tokenizer, 512)
+    input_ids_train, attention_masks_train = data_train.prepare()
+    data_test = data_set(test, tokenizer, 512)
+    input_ids_test, attention_masks_test = data_test.prepare()
+    data_dev = data_set(dev, tokenizer, 512)
+    input_ids_dev, attention_masks_dev = data_dev.prepare()
+    return input_ids_train, attention_masks_train, input_ids_test, attention_masks_test, input_ids_dev, attention_masks_dev
+
+
 def import_corpus():
     test = pd.read_csv("test.csv")
     train = pd.read_csv("train.csv")
@@ -102,7 +113,6 @@ class data_set():
     def prepare(self):
         attention_arr = np.zeros((self.__len__(), self.max_len))
         input_ids_arr = np.zeros((self.__len__(), self.max_len))
-        print(attention_arr.shape)
         for i in range(self.__len__()):
             row = self.data.iloc[i]
             text_original1 = row["original1"].replace("<", "").replace("/>", "")
@@ -113,14 +123,13 @@ class data_set():
                            row["original2"].split(">")[1]
             batch = self.tokenizer.encode_plus(
                 text_original1 + " " + text_edited1 + " " + text_original2 + " " + text_edited2,
-                max_length=self.max_len,padding=True,return_tensors="tf", add_special_tokens=True)
-            print(batch)
-            attention_arr[i, :] = batch["attention_mask"]
+                add_special_tokens=True,
+                max_length=self.max_len,
+                return_token_type_ids=False, padding="max_length", truncation=True,
+                return_attention_mask=True, return_tensors="tf")
             input_ids_arr[i, :] = batch["input_ids"]
+            attention_arr[i, :] = batch["attention_mask"]
         return input_ids_arr, attention_arr
 
 
-train, test, dev = import_corpus()
-print(tokenizer.encode_plus(train.iloc[0]["original1"],max_length=512))
-data = data_set(train, tokenizer)
-print(data.prepare())
+
