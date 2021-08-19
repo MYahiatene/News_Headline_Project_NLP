@@ -1,97 +1,31 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from tensorflow.keras import utils
 from transformers import BertTokenizer
-
-# id,        original1,                                                       edit1,grades1,meanGrade1,original2,                                                edit2,      grades2,meanGrade2,label
-# 10920-9866,""" Gene Cernan , Last <Astronaut/> on the Moon , Dies at 82 """,Dancer,01113,1.2,""" Gene Cernan , Last Astronaut on the Moon , <Dies/> at 82 """,impregnated,30001,0.8,1
-### label 1 means first headline funnier than 2nd and vice versa
-labels = [1, 2]
 
 bert_model = "bert-base-cased"
 tokenizer = BertTokenizer.from_pretrained(bert_model)
-
-'''def import_corpus():
-    test = pd.read_csv("test.csv")
-    train = pd.read_csv("train.csv")
-    dev = pd.read_csv("dev.csv")
-    train_data_ver1 = train[["original1", "edit1", "meanGrade1"]]
-    train_data_ver2 = train[["original2", "edit2", "meanGrade2"]]
-    train_data_ver1 = train_data_ver1.rename(
-        columns={"original1": "original", "edit1": "edit", "meanGrade1": "meanGrade"})
-    train_data_ver2 = train_data_ver2.rename(
-        columns={"original2": "original", "edit2": "edit", "meanGrade2": "meanGrade"})
-    test_data_ver1 = test[["original1", "edit1", "meanGrade1"]]
-    test_data_ver2 = test[["original2", "edit2", "meanGrade2"]]
-    test_data_ver1 = test_data_ver1.rename(
-        columns={"original1": "original", "edit1": "edit", "meanGrade1": "meanGrade"})
-    test_data_ver2 = test_data_ver2.rename(
-        columns={"original2": "original", "edit2": "edit", "meanGrade2": "meanGrade"})
-    dev_data_ver1 = dev[["original1", "edit1", "meanGrade1"]]
-    dev_data_ver2 = dev[["original2", "edit2", "meanGrade2"]]
-    dev_data_ver1 = dev_data_ver1.rename(columns={"original1": "original", "edit1": "edit", "meanGrade1": "meanGrade"})
-    dev_data_ver2 = dev_data_ver2.rename(columns={"original2": "original", "edit2": "edit", "meanGrade2": "meanGrade"})
-    return (train_data_ver1, train_data_ver2), (test_data_ver1, test_data_ver2), (dev_data_ver1, dev_data_ver2)
-
-
-class data_set():
-    def __init__(self, data: pd.DataFrame, tokenizer: BertTokenizer, max_len: int = 256):
-        self.data = data
-        self.tokenizer = tokenizer
-        self.max_len = max_len
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx: int):
-        row = self.data.iloc[idx]
-        text_original = row["original"].replace("<", "").replace("/>", "")
-        text_edited = row["original"].split("<")[0] + row["edit"] + \
-                      row["original"].split(">")[1]
-        meanGrade = row["meanGrade"]
-        encoding = self.tokenizer.encode_plus(text_original, text_edited, add_special_tokens=True,
-                                              max_length=self.max_len,
-                                              return_token_type_ids=False, padding="max_length", truncation=True,
-                                              return_attention_mask=True, return_tensors="tf")
-        return dict(text_edited=text_edited, text_original=text_original, input_ids=tf.squeeze(encoding["input_ids"]),
-                    attention_mask=tf.squeeze(encoding["attention_mask"]), meanGrade=meanGrade)
-
-
-def prepare_data():
-    (train1, train2), (test1, test2), (dev1, dev2) = import_corpus()
-    train1 = data_set(train1, tokenizer)
-    train2 = data_set(train2, tokenizer)
-    test1 = data_set(test1, tokenizer)
-    test2 = data_set(test2, tokenizer)
-    dev1 = data_set(dev1, tokenizer)
-    dev2 = data_set(dev2, tokenizer)
-    return train1, train2, test1, test2, dev1, dev2
-
-
-(train1, train2), (test1, test2), (dev1, dev2) = import_corpus()
-train1 = data_set(train1, tokenizer)
-train2 = data_set(train2, tokenizer)
-dict1 = train1.__getitem__(0)
-dict2 = train2.__getitem__(0)
-print(tokenizer.decode(dict2["input_ids"]))
-lis = set()
-for i in range(train1.__len__()):
-    lis.add(train1.__getitem__(i)["meanGrade"])
-print(len(lis))
-# lis=set(map(round, lis))
-print(lis)
-'''
-
+max_length = 512
 
 def prepare_data():
     train, test, dev = import_corpus()
-    data_train = data_set(train, tokenizer, 512)
-    input_ids_train, attention_masks_train = data_train.prepare()
-    data_test = data_set(test, tokenizer, 512)
-    input_ids_test, attention_masks_test = data_test.prepare()
-    data_dev = data_set(dev, tokenizer, 512)
-    input_ids_dev, attention_masks_dev = data_dev.prepare()
-    return input_ids_train, attention_masks_train, input_ids_test, attention_masks_test, input_ids_dev, attention_masks_dev
+    labels_train = utils.to_categorical(
+        labels := train["meanGrade1"].append(train["meanGrade2"], ignore_index=True).values,
+        num_classes=len(set(labels)))
+    labels_dev = utils.to_categorical(labels := dev["meanGrade1"].append(dev["meanGrade2"], ignore_index=True).values,
+                                      num_classes=len(set(labels)))
+    data_train = data_set(train, tokenizer, max_length)
+    input_ids_train, attention_masks_train, labels_train = data_train.prepare()
+    labels_train = utils.to_categorical(labels_train, num_classes=3)
+    labels_dev = utils.to_categorical(labels_dev, num_classes=3)
+ #   data_test = data_set(test, tokenizer, max_length)
+#    input_ids_test, attention_masks_test, labels_test = data_test.prepare()
+    data_dev = data_set(dev, tokenizer, max_length)
+    input_ids_dev, attention_masks_dev, labels_dev = data_dev.prepare()
+    data_set_train = tf.data.Dataset.from_tensor_slices(({"input":input_ids_train, "mask":attention_masks_train}, labels_train))
+    data_set_dev = tf.data.Dataset.from_tensor_slices(({"input":input_ids_dev, "mask":attention_masks_dev}, labels_dev))
+    return data_set_train, data_set_dev
 
 
 def import_corpus():
@@ -113,6 +47,7 @@ class data_set():
     def prepare(self):
         attention_arr = np.zeros((self.__len__(), self.max_len))
         input_ids_arr = np.zeros((self.__len__(), self.max_len))
+        labels = list()
         for i in range(self.__len__()):
             row = self.data.iloc[i]
             text_original1 = row["original1"].replace("<", "").replace("/>", "")
@@ -129,7 +64,10 @@ class data_set():
                 return_attention_mask=True, return_tensors="tf")
             input_ids_arr[i, :] = batch["input_ids"]
             attention_arr[i, :] = batch["attention_mask"]
-        return input_ids_arr, attention_arr
-
-
-
+            if row["meanGrade1"] - row["meanGrade2"] < 0:
+                labels.append(2)
+            elif row["meanGrade1"] - row["meanGrade2"] > 0:
+                labels.append(1)
+            else:
+                labels.append(0)
+        return input_ids_arr, attention_arr, labels
