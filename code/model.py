@@ -1,5 +1,7 @@
 import tensorflow as tf
 from transformers import TFAutoModel as auto
+from preprocessing import data_sets,tokenizer,max_length
+
 data_set=data_sets(tokenizer,max_length)
 train_data=data_set.data_set_train
 dev_data=data_set.data_set_dev
