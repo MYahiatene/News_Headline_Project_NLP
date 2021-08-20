@@ -6,7 +6,7 @@ from transformers import BertTokenizer
 
 bert_model = "bert-base-cased"
 tokenizer = BertTokenizer.from_pretrained(bert_model)
-max_length = 512
+max_length = 128
 
 
 class data_sets():
@@ -17,13 +17,11 @@ class data_sets():
         self.data_set_train, self.data_set_dev = self._prepare_data_()
         self.data_set_test = self._prepare_(self.test)
 
-
     def _import_corpus_(self):
         test = pd.read_csv("test.csv")
         train = pd.read_csv("train.csv")
         dev = pd.read_csv("dev.csv")
         return train, test, dev
-
 
     def _prepare_data_(self):
         input_ids_train, attention_masks_train, labels_train = self._prepare_(self.train)
@@ -34,7 +32,6 @@ class data_sets():
         data_set_dev = tf.data.Dataset.from_tensor_slices(
             ({"input": input_ids_dev, "mask": attention_masks_dev}, labels_dev))
         return data_set_train, data_set_dev
-
 
     def _prepare_(self, data):
         attention_arr = np.zeros((len(data), self.max_len))
@@ -62,6 +59,10 @@ class data_sets():
                 labels.append(1)
             else:
                 labels.append(0)
+        # categorical[np.arange(len(data)),labels]=1
+        #labels = utils.to_categorical(labels)
         labels = utils.to_categorical(labels, num_classes=len(set(labels)))
         return input_ids_arr, attention_arr, labels
 
+
+#data_set = data_sets(tokenizer, max_length)
