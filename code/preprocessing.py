@@ -6,7 +6,7 @@ from transformers import BertTokenizer
 
 bert_model = "bert-base-cased"
 tokenizer = BertTokenizer.from_pretrained(bert_model)
-max_length = 128
+max_length = 256
 
 
 class data_sets():
@@ -14,29 +14,32 @@ class data_sets():
         self.tokenizer = tokenizer
         self.max_len = max_len
         self.train, self.test, self.dev = self._import_corpus_()
-        self.data_set_train, self.data_set_dev = self._prepare_data_()
-        self.data_set_test = self._prepare_(self.test)
+        self.data_set_train, self.data_set_dev, self.data_set_test = self._prepare_data_()
 
     def _import_corpus_(self):
         test = pd.read_csv("test.csv")
         train = pd.read_csv("train.csv")
         dev = pd.read_csv("dev.csv")
+        print("train:", len(train))
+        print("dev:", len(dev))
+        print("test:", len(test))
         return train, test, dev
 
     def _prepare_data_(self):
         input_ids_train, attention_masks_train, labels_train = self._prepare_(self.train)
         input_ids_dev, attention_masks_dev, labels_dev = self._prepare_(self.dev)
-
+        input_ids_test, attention_masks_test, labels_test = self._prepare_(self.test)
         data_set_train = tf.data.Dataset.from_tensor_slices(
             ({"input": input_ids_train, "mask": attention_masks_train}, labels_train))
         data_set_dev = tf.data.Dataset.from_tensor_slices(
             ({"input": input_ids_dev, "mask": attention_masks_dev}, labels_dev))
-        return data_set_train, data_set_dev
+        data_set_test = tf.data.Dataset.from_tensor_slices(
+            ({"input": input_ids_test, "mask": attention_masks_test}, labels_test))
+        return data_set_train, data_set_dev, data_set_test
 
     def _prepare_(self, data):
         attention_arr = np.zeros((len(data), self.max_len))
         input_ids_arr = np.zeros((len(data), self.max_len))
-        labels = list()
         for i in range(len(data)):
             row = data.iloc[i]
             text_original1 = row["original1"].replace("<", "").replace("/>", "")
@@ -53,16 +56,6 @@ class data_sets():
                 return_attention_mask=True, return_tensors="tf")
             input_ids_arr[i, :] = batch["input_ids"]
             attention_arr[i, :] = batch["attention_mask"]
-            if row["meanGrade1"] - row["meanGrade2"] < 0:
-                labels.append(2)
-            elif row["meanGrade1"] - row["meanGrade2"] > 0:
-                labels.append(1)
-            else:
-                labels.append(0)
-        # categorical[np.arange(len(data)),labels]=1
-        #labels = utils.to_categorical(labels)
+        labels = data["label"].tolist()
         labels = utils.to_categorical(labels, num_classes=len(set(labels)))
         return input_ids_arr, attention_arr, labels
-
-
-#data_set = data_sets(tokenizer, max_length)

@@ -1,10 +1,8 @@
-import numpy as np
-import tensorflow
-import transformers
-import pandas as pd
-from preprocessing import data_sets
+
+import tensorflow as tf
+
 if __name__ == "__main__":
-    model = tensorflow.keras.models.load_model("my_model")
+    model = tf.keras.models.load_model("./my_model")
     original = "40 percent of voters believe Trump is fit to be president , a new low "
     edit1 = "40 percent of gnomes believe Trump is fit to be president , a new low "
     edit2 = "40 percent of voters believe Trump is fit to be triathlete , a new low "
@@ -12,7 +10,7 @@ if __name__ == "__main__":
     #test_input,test_mask,_=data_sets._prepare_(test)
     #for i,idx in enumerate(test_input):
      #model.predict(dict(input=tokens["input_ids"], mask=tokens["attention_mask"])
-    predictions = list()
+"""    predictions = list()
     text = original + edit1 + original + edit2
     tokens = transformers.BertTokenizer.from_pretrained("bert-base-cased").encode_plus(text=text, max_length=128,
                                                                                        truncation=True,
@@ -23,5 +21,5 @@ if __name__ == "__main__":
     test = model.predict(dict(input=tokens["input_ids"], mask=tokens["attention_mask"]))
 
     print(test)
-    print(np.argmax(test))
+    print(np.argmax(test))"""
     #print(predictions)
