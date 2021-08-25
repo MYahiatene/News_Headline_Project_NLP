@@ -50,32 +50,43 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 			
 			\caption{System Architecture of Mahurkar and Patil 2020}\label{fig1}
 		\end{figure}
+
+    As we can see in figure 2  the differences between the masked and the non masked approach are marginal.
+    			\begin{figure}
+    	\begin{center}
+    		\includegraphics[width=1.0\linewidth]{eval_tab.png}
+    	\end{center}
+    	
+    	\caption{Evaluation of Mahurkar and Patil 2020}\label{fig2}
+    \end{figure}	
+	\section{Method}
+	In this section I use a different approach: similiar to above mentioned approach I concatenated originial headlines with edited headlines but instead of generating 2 sentences I concatenate them again to one sentence in following manner: originial1 + edited1 + originial2 + edited2.
+	This new sentence is fed as input into my model which is shown in figure 3.
+	My model differs from the usual approach seen in the competition(regression task for task 1 and task 2), instead I'm trying a multi class classification approach with 3 classes. Namely 0,1,2 with the meaning 0: both edited headlines are equally funny, 1 first headline is funnier than second and 2 second headline is funnier than first.
+	On top of the vanilla BERT layer I put a Dropout layer and after that an output layer according to my 3 classes with a softmax activation function to get the probabilites for my outputs. 
+	I also chose a sequence length of 256 and a batch size of 8 for all my data sets (train,dev,test).
 	
-			\begin{figure}
+	    \begin{figure}
 		\begin{center}
-			\includegraphics[width=1.0\linewidth]{evaluation_prof_paper.png}
+			\includegraphics[width=1.0\linewidth]{model.png}
 		\end{center}
 		
-		\caption{Evaluation of Mahurkar and Patil 2020}\label{fig2}
+		\caption{Model Architecture}\label{fig3}
 	\end{figure}	
-    As we can see in figure 2  the differences between the masked and the non masked approach are marginal.
-	\section{Method}
-	In this section I use a different approach: similiar to above mentioned approach I concatenated originial headlines with edited headlines but instead of generating 2 sentences I concatenate them again to one sentence in following manner: originial1 + edited1 + originial2 + edited2 .
-	
 		
 	\section{Evaluation}
      . See Table \ref{tab1}.
 		
 		\begin{table}
 			\begin{center}
-				\begin{tabular}{|c|c|c|}
+				\begin{tabular}{|c|c|}
 					\hline
-					\textbf{Model} & $\cdots$ & \textbf{Accuracy}\\
+					\textbf{Model} &  \textbf{Accuracy}\\
 					\hline
 					\hline
-					XXX & $\cdots$ & 0.6\\
+					XXX & 0.6\\
 					\hline
-					XXX & $\cdots$ & \textbf{0.8}\\
+					XXX & \textbf{0.8}\\
 					\hline
 				\end{tabular}
 			\end{center}
@@ -85,7 +96,7 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 		
 
 	\section{Conclusion}
-
-	sdfdsfsdfd
+	In this work we tested the ability of the pretrained BERT Model for state of the art NLP tasks to be precise assesing humor in edited headlines. With little effort one can achieve relatively good results on a custom fine tuned model. Future work could include experimenting with different pretrained models, trying new language model techiques or different approaches in customizing the input.
+	
 	\printbibliography
 \end{document}
