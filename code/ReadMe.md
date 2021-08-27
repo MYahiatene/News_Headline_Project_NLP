@@ -15,3 +15,4 @@ Weights link: https://drive.google.com/drive/folders/1-DTjj862s7HH14KfvnH5y6kbZ6
 
 test.py:
 The test.py initializes the model with the pretrained weights and predicts the funnier of two headlines:
+The script takes a random sample from the test set and predicts the funnier of both headlines.
