@@ -6,8 +6,6 @@ data_set = data_sets(tokenizer, max_length)
 train_data = data_set.data_set_train
 dev_data = data_set.data_set_dev
 test_data = data_set.data_set_test
-print(train_data)
-print(dev_data)
 train_data = train_data.shuffle(1000).batch(8, drop_remainder=True)
 dev_data = dev_data.shuffle(1000).batch(8, drop_remainder=True)
 test_data = test_data.batch(8)
