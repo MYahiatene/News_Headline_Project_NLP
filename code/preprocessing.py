@@ -3,50 +3,46 @@ import pandas as pd
 import tensorflow as tf
 from tensorflow.keras import utils
 from transformers import BertTokenizer
-### Define pretrained Model name , tokenizer and max sequence length ###
-bert_model = "bert-base-cased"
+import transformers
+
+bert_model = "bert-base-uncased"
 tokenizer = BertTokenizer.from_pretrained(bert_model)
 max_length = 256
+batch_size = 8
 
-###Data set class which returns data sets understandable for our model ###
+
 class data_sets():
-
-    ### Constructor ###
     def __init__(self, tokenizer: BertTokenizer, max_len: int = max_length):
         self.tokenizer = tokenizer
         self.max_len = max_len
         self.train, self.test, self.dev = self._import_corpus_()
         self.data_set_train, self.data_set_dev, self.data_set_test = self._prepare_data_()
 
-    ### Utility function to read the data with pandas ####
     def _import_corpus_(self):
         test = pd.read_csv("test.csv")
         train = pd.read_csv("train.csv")
         dev = pd.read_csv("dev.csv")
-        print("train:", len(train))
-        print("dev:", len(dev))
-        print("test:", len(test))
+        complete_set_len = len(train) + len(dev) + len(test)
+        train_percent = round(len(train) / complete_set_len * 100)
+        dev_percent = round(len(dev) / complete_set_len * 100)
+        test_percent = round(len(test) / complete_set_len * 100)
+        print("train data:", len(train), "({}%)".format(train_percent))
+        print("validation data:", len(dev), "({}%)".format(dev_percent))
+        print("test set:", len(test), "({}%)".format(test_percent))
         return train, test, dev
 
-    ### Our prepare data function which prepares our data sets suitable for our model (returns our train,dev and test set) ###
     def _prepare_data_(self):
-
         input_ids_train, attention_masks_train, labels_train = self._prepare_(self.train)
         input_ids_dev, attention_masks_dev, labels_dev = self._prepare_(self.dev)
         input_ids_test, attention_masks_test, labels_test = self._prepare_(self.test)
-
         data_set_train = tf.data.Dataset.from_tensor_slices(
             ({"input": input_ids_train, "mask": attention_masks_train}, labels_train))
-
         data_set_dev = tf.data.Dataset.from_tensor_slices(
             ({"input": input_ids_dev, "mask": attention_masks_dev}, labels_dev))
-
         data_set_test = tf.data.Dataset.from_tensor_slices(
             ({"input": input_ids_test, "mask": attention_masks_test}, labels_test))
-
         return data_set_train, data_set_dev, data_set_test
 
-    ### Utility function which tokenizes our input and creates input ids, attention masks and one hot encoded labels ###
     def _prepare_(self, data):
         attention_arr = np.zeros((len(data), self.max_len))
         input_ids_arr = np.zeros((len(data), self.max_len))

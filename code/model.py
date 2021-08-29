@@ -1,14 +1,14 @@
 import tensorflow as tf
 from transformers import TFBertModel as auto
-from preprocessing import data_sets, tokenizer, max_length
+from preprocessing import data_sets, tokenizer, max_length,batch_size
 
 data_set = data_sets(tokenizer, max_length)
 train_data = data_set.data_set_train
 dev_data = data_set.data_set_dev
 test_data = data_set.data_set_test
-train_data = train_data.shuffle(1000).batch(8, drop_remainder=True)
-dev_data = dev_data.shuffle(1000).batch(8, drop_remainder=True)
-test_data = test_data.batch(8)
+train_data = train_data.shuffle(1000).batch(batch_size, drop_remainder=True)
+dev_data = dev_data.shuffle(1000).batch(batch_size, drop_remainder=True)
+test_data = test_data.batch(batch_size)
 
 
 def build_model():
