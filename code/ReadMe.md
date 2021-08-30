@@ -9,7 +9,9 @@ test set.
 
 If the training takes too long I uploaded the model in my google drive. model link:
 
-https://drive.google.com/drive/folders/1EPxJ4PwoBt-AIFfNVTzed7vlvnxmGiZb?usp=sharing
+https://drive.google.com/uc?export=download&id=1lFUEKhw5qmzAKZ-gAS2s8NvRvDLfu0Md
+
+Just unzip the zip in the code folder.
 
 test.py:
 The test.py initializes the model with the pretrained moedl and predicts the funnier of two headlines:
