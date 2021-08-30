@@ -1,15 +1,15 @@
-[0] Config.pm:312> INFO - This is Biber 2.15
-[0] Config.pm:315> INFO - Logfile is 'paper.blg'
-[69] biber:330> INFO - === So Aug 29, 2021, 18:40:39
-[81] Biber.pm:415> INFO - Reading 'paper.bcf'
-[148] Biber.pm:952> INFO - Found 2 citekeys in bib section 0
-[161] Biber.pm:4334> INFO - Processing section 0
-[171] Biber.pm:4523> INFO - Looking for bibtex format file 'paper.bib' for section 0
-[171] bibtex.pm:1682> INFO - LaTeX decoding ...
-[173] bibtex.pm:1494> INFO - Found BibTeX data source 'paper.bib'
-[215] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[215] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[215] Biber.pm:4162> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[215] Biber.pm:4168> INFO - No sort tailoring available for locale 'en-US'
-[218] bbl.pm:651> INFO - Writing 'paper.bbl' with encoding 'UTF-8'
-[220] bbl.pm:754> INFO - Output to paper.bbl
+[0] Config.pm:302> INFO - This is Biber 2.9
+[0] Config.pm:305> INFO - Logfile is 'paper.blg'
+[31] biber:313> INFO - === Mon Aug 30, 2021, 16:58:28
+[86] Biber.pm:371> INFO - Reading 'paper.bcf'
+[135] Biber.pm:857> INFO - Found 2 citekeys in bib section 0
+[145] Biber.pm:3981> INFO - Processing section 0
+[156] Biber.pm:4154> INFO - Looking for bibtex format file 'paper.bib' for section 0
+[160] bibtex.pm:1468> INFO - LaTeX decoding ...
+[163] bibtex.pm:1294> INFO - Found BibTeX data source 'paper.bib'
+[193] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[194] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[194] Biber.pm:3809> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[194] Biber.pm:3815> INFO - No sort tailoring available for locale 'en-US'
+[205] bbl.pm:617> INFO - Writing 'paper.bbl' with encoding 'UTF-8'
+[206] bbl.pm:720> INFO - Output to paper.bbl

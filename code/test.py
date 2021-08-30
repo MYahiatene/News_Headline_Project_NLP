@@ -1,14 +1,18 @@
 import transformers
-import tensorflow
+import tensorflow as tf
 import numpy as np
 from preprocessing import max_length
-from model import build_model, data_set
+from model import data_set
 
-model = build_model()
-model.load_weights(filepath="./model_weights/weights")
+model = tf.keras.models.load_model("./my_model_base_uncased")
 
 
+# Grabs a random sample from our test data set
 def grab_random_sample():
+    '''
+    @return:  originial sentence, edited sentence 1, edited sentence 2
+    @rtype: string, string, string
+    '''
     test_data = data_set.test
     rnd = np.random.randint(0, len(test_data))
     row = test_data.iloc[rnd]
@@ -20,7 +24,18 @@ def grab_random_sample():
     return original, text_edited1, text_edited2
 
 
+# predicts which edited sentence is funnier
 def predict(original, edit1, edit2):
+    '''
+    :param original: original sentence
+    :type original: string
+    :param edit1: edited sentence 1
+    :type edit1: string
+    :param edit2: edited sentence 2
+    :type edit2: string
+    :return: a label 0,1 or 2
+    :rtype: int
+    '''
     original = original
     edit1 = edit1
     edit2 = edit2
@@ -45,6 +60,7 @@ def predict(original, edit1, edit2):
 
 
 original, edit1, edit2 = grab_random_sample()
+# We can specify our own sentences if we dont want to grab random ones from test data:
 '''original = "40 percent of voters believe Trump is fit to be president , a new low "
 edit1 = "40 percent of gnomes believe Trump is fit to be president , a new low "
 edit2 = "40 percent of voters believe Trump is fit to be triathlete , a new low "'''

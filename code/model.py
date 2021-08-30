@@ -1,17 +1,25 @@
 import tensorflow as tf
 from transformers import TFBertModel as auto
-from preprocessing import data_sets, tokenizer, max_length,batch_size
+from preprocessing import data_sets, tokenizer, max_length, batch_size
 
-data_set = data_sets(tokenizer, max_length)
-train_data = data_set.data_set_train
-dev_data = data_set.data_set_dev
-test_data = data_set.data_set_test
-train_data = train_data.shuffle(1000).batch(batch_size, drop_remainder=True)
-dev_data = dev_data.shuffle(1000).batch(batch_size, drop_remainder=True)
-test_data = test_data.batch(batch_size)
+data_set = data_sets(tokenizer,
+                     max_length)  # creates our data set object with a specified tokenizer and max sequence length
+
+train_data = data_set.data_set_train  # train data
+dev_data = data_set.data_set_dev  # validation data
+test_data = data_set.data_set_test  # test data
+
+train_data = train_data.shuffle(1000).batch(batch_size, drop_remainder=True)  # shuffle and batch train data
+dev_data = dev_data.shuffle(1000).batch(batch_size, drop_remainder=True)  # shuffle and batch validation data
+test_data = test_data.batch(batch_size)  # batch test data
 
 
+# function to build and return our model
 def build_model():
+    '''
+    :return: Fine tuned bert model
+    :rtype: tensorflow model
+    '''
     model = auto.from_pretrained("bert-base-cased")
     input = tf.keras.layers.Input(shape=(max_length,), name="input", dtype="int32")
     mask = tf.keras.layers.Input(shape=(max_length,), name="mask", dtype="int32")

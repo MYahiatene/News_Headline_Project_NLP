@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.1 $
+% $ biblatex bbl format version 2.9 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -21,13 +21,13 @@
   \datalist[entry]{nyt/global//global/global}
     \entry{Bert1}{misc}{}
       \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=0de2f55d481c329fcec07ed32730fdad}{%
+        {{uniquename=0,uniquepart=base,hash=0de2f55d481c329fcec07ed32730fdad}{%
            family={Mahurkar},
            familyi={M\bibinitperiod},
            given={Siddhant},
            giveni={S\bibinitperiod},
            givenun=0}}%
-        {{un=0,uniquepart=base,hash=74f779c789f3f5aa50dde41ec34e1887}{%
+        {{uniquename=0,uniquepart=base,hash=74f779c789f3f5aa50dde41ec34e1887}{%
            family={Patil},
            familyi={P\bibinitperiod},
            given={Rajaswa},
@@ -41,7 +41,7 @@
       \strng{authornamehash}{005fe56a128a624266c9cfcb301ed44f}
       \strng{authorfullhash}{005fe56a128a624266c9cfcb301ed44f}
       \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{year}
       \field{labelnamesource}{author}
@@ -52,7 +52,7 @@
     \endentry
     \entry{Bert2}{misc}{}
       \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=424514420aea6f678ed7951afaedca11}{%
+        {{uniquename=0,uniquepart=base,hash=ad15a865c72f5a8b7445f01b499ec824}{%
            family={Nabil\bibnamedelima Hossain†},
            familyi={N\bibinitperiod\bibinitdelim H\bibinitperiod},
            given={Michael\bibnamedelima Gamon‡},
@@ -61,26 +61,26 @@
            suffix={John\bibnamedelima Krumm‡},
            suffixi={J\bibinitperiod\bibinitdelim K\bibinitperiod},
            suffixun=0}}%
-        {{un=0,uniquepart=base,hash=b2f57860068ca81fddf9083bdf8e72a5}{%
+        {{uniquename=0,uniquepart=base,hash=b2f57860068ca81fddf9083bdf8e72a5}{%
            family={Kautz},
            familyi={K\bibinitperiod},
            given={Henry},
            giveni={H\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{daf6449af55d6807990f3c353b0a75e6}
-      \strng{fullhash}{daf6449af55d6807990f3c353b0a75e6}
-      \strng{bibnamehash}{daf6449af55d6807990f3c353b0a75e6}
-      \strng{authorbibnamehash}{daf6449af55d6807990f3c353b0a75e6}
-      \strng{authornamehash}{daf6449af55d6807990f3c353b0a75e6}
-      \strng{authorfullhash}{daf6449af55d6807990f3c353b0a75e6}
+      \strng{namehash}{d7876bf61187040f65578737efd1d56c}
+      \strng{fullhash}{d7876bf61187040f65578737efd1d56c}
+      \strng{bibnamehash}{d7876bf61187040f65578737efd1d56c}
+      \strng{authorbibnamehash}{d7876bf61187040f65578737efd1d56c}
+      \strng{authornamehash}{d7876bf61187040f65578737efd1d56c}
+      \strng{authorfullhash}{d7876bf61187040f65578737efd1d56c}
       \field{sortinit}{N}
-      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{sortinithash}{f7242c3ed3dc50029fca1be76c497c7c}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{howpublished}{https://arxiv.org/pdf/2008.00304.pdf}
+      \field{howpublished}{\url{https://arxiv.org/pdf/2008.00304.pdf}}
       \field{title}{SemEval-2020 Task 7: Assessing Humor in Edited News Headlines}
       \field{year}{2020}
     \endentry
