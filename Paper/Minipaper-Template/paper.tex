@@ -43,14 +43,9 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 		To be precise they followed a masked language modeling approach on the entire dataset only using the edited texts as input while masking all the words in the text for prediction. They chose a maximum sequence length of 256 tokens for masked word prediction. They also experiment with the original BERT Model weights to initiliaze sub task 1 model weights and compare the results.
 		Noteworthy is the fact that for sub  task 1 they fed the model the orignial headline and the edited text and for subtask 2 they concatenated the originial headline 1 with the edited headline 1 and concatenated the originial headline 2 with the edited headline 2 and fed the model 2 sentences.
 		The reason for that is that the context between the originial end edited headline was deemed important.
-		  \begin{figure}
-			\begin{center}
-				\includegraphics[width=1.0\linewidth]{system_architecture.png}
-			\end{center}
-			
-			\caption{Model Architecture taken from \textcite{Bert1} }\label{fig1}
-		\end{figure}	
 
+				\includegraphics[width=1.0\linewidth]{system_architecture.png}
+	
 
 	\section{Method}
 		We have access to the humicroedit data set and an additionial funlines data set.
@@ -64,13 +59,9 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 		Finally I added a last output layer with a softmax activation function over 3 output classes.
 		%TODO: give some reasons [avantages] why you go with your assigned language model
 	
-	    \begin{figure}
-		\begin{center}
-			\includegraphics[width=1.0\linewidth]{model.png}
-		\end{center}
-		
-		\caption{Model Architecture}\label{fig3}
-	\end{figure}	
+
+		\includegraphics[width=0.5\linewidth]{My_Model_Architecture.png}
+
 		
 	\section{Evaluation}
     In this section we want to see how our own model and approach fares against the other participants in the competition especially against the model by \textcite{Bert1} using the pretrained BERT model .
@@ -81,7 +72,7 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
     
 		
 		\begin{table}
-			\begin{center}
+	
 				\begin{tabular}{|c|c|}
 					\hline
 					\textbf{Model} &  \textbf{Accuracy}\\
@@ -94,15 +85,14 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 					BERT large uncased & \textbf{0.46}\\
 					\hline
 				\end{tabular}
-			\end{center}
+
 			
 			\caption{Results}\label{tab1}
 		\end{table}				
 		
-	    \begin{figure}
-	\begin{center}
-		\includegraphics[width=1.0\linewidth]{eval_table.png}
-	\end{center}
+
+		\includegraphics[width=1.0\linewidth]{eval_tab_edited2.png}
+
 	
 	\caption{Evaluation scores taken from \textcite{Bert1}}\label{fig4}
 \end{figure}	

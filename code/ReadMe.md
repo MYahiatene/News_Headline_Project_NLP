@@ -2,15 +2,15 @@ Python Version: 3.8
 
 Required Python libraries:
 
--numpy  >=1.21.2
+-numpy  
 
--tensorflow >= 2.6
+-tensorflow 
 
--keras >= 2.6
+-keras 
 
--pandas >= 1.3.2
+-pandas 
 
--transformers >= 4.9.2
+-transformers 
 
 Alternatively you can use the command "pip3 install -r requirements.txt" to install the necessary libraries.
 
@@ -20,13 +20,13 @@ the ./my_model_base_uncased folder(should be located where the scripts lie) and 
 true the model trains on the training and dev set and saves the model to ./my_model_base_uncased and evaluates on the
 test set.
 
-If the training takes too long I uploaded the model in my google drive. model link:
+If the training takes too long I uploaded the model in my google drive model link:
 
 https://drive.google.com/uc?export=download&id=1lFUEKhw5qmzAKZ-gAS2s8NvRvDLfu0Md
 
 Just unzip the zip in the code folder.
 
 test.py:
-The test.py initializes the model with the pretrained moedl and predicts the funnier of two headlines:
+The test.py initializes the model with the pretrained model and predicts the funnier of two headlines:
 The script takes a random sample from the test set and predicts the funnier of both headlines. You can also specify your
 own sentences to predict :) .
