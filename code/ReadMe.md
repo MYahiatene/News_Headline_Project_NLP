@@ -1,7 +1,20 @@
-Required Python libraries:
--numpy -tensorflow -keras -pandas -transformers
+Python Version: 3.8
 
-train-evaluate-main>
+Required Python libraries:
+
+-numpy  >=1.21.2
+
+-tensorflow >= 2.6
+
+-keras >= 2.6
+
+-pandas >= 1.3.2
+
+-transformers >= 4.9.2
+
+Alternatively you can use the command "pip install -r requirements.txt" to install the necessary libraries.
+
+train-evaluate-main:
 There is a flag in train-evaluate-main.py which is called train. If set to false the model grabs pretrained model from
 the ./my_model_base_uncased folder(should be located where the scripts lie) and evaluates on the test set. If set to
 true the model trains on the training and dev set and saves the model to ./my_model_base_uncased and evaluates on the
