@@ -3,7 +3,7 @@ from model import build_model, train_data, dev_data, test_data
 
 ### Our main script file to train and evaluate our model ###
 if __name__ == "__main__":
-    train = False  # if set to false we load our saved model and don't train, else we build new model and train.
+    train = True  # if set to false we load our saved model and don't train, else we build new model and train.
     if train:
         model = build_model()
         model.summary()

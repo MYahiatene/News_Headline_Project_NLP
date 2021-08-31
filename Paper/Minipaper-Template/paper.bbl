@@ -19,6 +19,49 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
+    \entry{BertPaper}{misc}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=13202969e372bc82318f9629cbdd199b}{%
+           family={Devlin},
+           familyi={D\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a45784fe7163b45f11d166564f5d24b6}{%
+           family={Chang},
+           familyi={C\bibinitperiod},
+           given={Ming-Wei},
+           giveni={M\bibinithyphendelim W\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=8dde73b4194f5bc4230c4808f3fc1534}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Kenton},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=19a3aa157bb5e31a3df80908bbdb927b}{%
+           family={Toutanova},
+           familyi={T\bibinitperiod},
+           given={Kristina\bibnamedelima N.},
+           giveni={K\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ad8e2e2a80d28ade21e86852b804fc9b}
+      \strng{fullhash}{f45d2334527d83c49c0c3f4f8e0785e9}
+      \strng{bibnamehash}{ad8e2e2a80d28ade21e86852b804fc9b}
+      \strng{authorbibnamehash}{ad8e2e2a80d28ade21e86852b804fc9b}
+      \strng{authornamehash}{ad8e2e2a80d28ade21e86852b804fc9b}
+      \strng{authorfullhash}{f45d2334527d83c49c0c3f4f8e0785e9}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://arxiv.org/abs/1810.04805}}
+      \field{title}{BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding}
+      \field{year}{2018}
+    \endentry
     \entry{Bert1}{misc}{}
       \name{author}{2}{}{%
         {{uniquename=0,uniquepart=base,hash=0de2f55d481c329fcec07ed32730fdad}{%
@@ -52,13 +95,13 @@
     \endentry
     \entry{Bert2}{misc}{}
       \name{author}{2}{}{%
-        {{uniquename=0,uniquepart=base,hash=ad15a865c72f5a8b7445f01b499ec824}{%
-           family={Nabil\bibnamedelima Hossain†},
+        {{uniquename=0,uniquepart=base,hash=51588b120fe50c0f14a9c67b7931e715}{%
+           family={Nabil\bibnamedelima Hossain},
            familyi={N\bibinitperiod\bibinitdelim H\bibinitperiod},
-           given={Michael\bibnamedelima Gamon‡},
+           given={Michael\bibnamedelima Gamon},
            giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod},
            givenun=0,
-           suffix={John\bibnamedelima Krumm‡},
+           suffix={John\bibnamedelima Krumm},
            suffixi={J\bibinitperiod\bibinitdelim K\bibinitperiod},
            suffixun=0}}%
         {{uniquename=0,uniquepart=base,hash=b2f57860068ca81fddf9083bdf8e72a5}{%
@@ -68,12 +111,12 @@
            giveni={H\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{d7876bf61187040f65578737efd1d56c}
-      \strng{fullhash}{d7876bf61187040f65578737efd1d56c}
-      \strng{bibnamehash}{d7876bf61187040f65578737efd1d56c}
-      \strng{authorbibnamehash}{d7876bf61187040f65578737efd1d56c}
-      \strng{authornamehash}{d7876bf61187040f65578737efd1d56c}
-      \strng{authorfullhash}{d7876bf61187040f65578737efd1d56c}
+      \strng{namehash}{af8706452d4c3b50b7a1b1e421cbe711}
+      \strng{fullhash}{af8706452d4c3b50b7a1b1e421cbe711}
+      \strng{bibnamehash}{af8706452d4c3b50b7a1b1e421cbe711}
+      \strng{authorbibnamehash}{af8706452d4c3b50b7a1b1e421cbe711}
+      \strng{authornamehash}{af8706452d4c3b50b7a1b1e421cbe711}
+      \strng{authorfullhash}{af8706452d4c3b50b7a1b1e421cbe711}
       \field{sortinit}{N}
       \field{sortinithash}{f7242c3ed3dc50029fca1be76c497c7c}
       \field{extradatescope}{labelyear}
