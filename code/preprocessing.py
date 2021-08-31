@@ -38,9 +38,9 @@ class data_sets():
         train_percent = round(len(train) / complete_set_len * 100)
         dev_percent = round(len(dev) / complete_set_len * 100)
         test_percent = round(len(test) / complete_set_len * 100)
-        print("train data:", len(train), "({}%)".format(train_percent))
-        print("validation data:", len(dev), "({}%)".format(dev_percent))
-        print("test set:", len(test), "({}%)".format(test_percent))
+        print("\ntrain data:", len(train), "({}%)".format(train_percent))
+        print("\nvalidation data:", len(dev), "({}%)".format(dev_percent))
+        print("\ntest set:", len(test), "({}%)".format(test_percent),"\n")
         return train, test, dev
 
     # processes the data with utility function _prepare_ and returns the tensors for our model

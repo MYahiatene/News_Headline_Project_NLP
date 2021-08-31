@@ -14,6 +14,8 @@ Required Python libraries:
 
 Alternatively you can use the command "pip3 install -r requirements.txt" to install the necessary libraries.
 
+All scripts should be executed in the respective folder.
+
 train-evaluate-main:
 There is a flag in train-evaluate-main.py which is called train. If set to false the model grabs pretrained model from
 the ./my_model_base_uncased folder(should be located where the scripts lie) and evaluates on the test set. If set to
