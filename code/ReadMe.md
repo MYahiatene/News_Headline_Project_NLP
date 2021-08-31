@@ -12,7 +12,7 @@ Required Python libraries:
 
 -transformers >= 4.9.2
 
-Alternatively you can use the command "pip install -r requirements.txt" to install the necessary libraries.
+Alternatively you can use the command "pip3 install -r requirements.txt" to install the necessary libraries.
 
 train-evaluate-main:
 There is a flag in train-evaluate-main.py which is called train. If set to false the model grabs pretrained model from

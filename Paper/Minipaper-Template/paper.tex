@@ -48,7 +48,7 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 				\includegraphics[width=1.0\linewidth]{system_architecture.png}
 			\end{center}
 			
-			\caption{Model Architecture by \textcite{Bert1} }\label{fig1}
+			\caption{Model Architecture taken from \textcite{Bert1} }\label{fig1}
 		\end{figure}	
 
 
@@ -91,7 +91,7 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 					\hline
 					BERT base uncased & \textbf{0.48}\\
 					\hline
-					BERT large uncased & \textbf{46}\\
+					BERT large uncased & \textbf{0.46}\\
 					\hline
 				\end{tabular}
 			\end{center}
@@ -99,7 +99,13 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 			\caption{Results}\label{tab1}
 		\end{table}				
 		
-
+	    \begin{figure}
+	\begin{center}
+		\includegraphics[width=1.0\linewidth]{eval_table.png}
+	\end{center}
+	
+	\caption{Evaluation scores taken from \textcite{Bert1}}\label{fig4}
+\end{figure}	
 	\section{Conclusion}
 	In this work we tested the ability of the pretrained BERT Model for state of the art NLP tasks to be precise assesing humor in edited headlines. With little effort one can achieve relatively good results on a custom fine tuned model.  Almost every competitor used their model architecture from sub task 1 and used it for sub task 2 with zero shot inference. Those who didnt choose this approach had significantly lower results. Also picking the right pretrained model had quite an influence on the results . Score wise we can see that RoBERTa seems to be leading closely followed by BERT.   We have seen that state of the art approaches  only achieve medicore results compared to other NLP tasks (Rank 1 : Team Hitachi on RoBERTa, task 1: RMSE: 0.522 , task 2: Accuracy: 0.65). This shows humor related NLP tasks still need a lot more research and work done.
 	Future work could include experimenting with different pretrained models, trying new language model techiques or different approaches in customizing the input.
